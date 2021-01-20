@@ -75,6 +75,83 @@ int update(int hashing_array[], int value)
 
 int cost = 0;
 
+int Markingaccess(int hashing_array[][2], int size, int value)
+{
+	int temp = hashing_function(value);
+	int u = temp;
+
+	while(u < size)
+	{
+		if (hashing_array[u][0] == value)
+		{
+			hashing_array[u][1] = 1;
+			return true;
+		}
+
+		u++;
+	}
+
+	while(u >= 0)
+	{
+		if (hashing_array[u][0] == value)
+		{
+			hashing_array[u][1] = 1;
+			return true;
+		}
+
+		u--;
+	}
+
+	int least_frequent = 0;
+	int random;
+	bool set = false;
+
+	while (set == false)
+	{
+		random = rand() % 100;
+		int point = random;
+
+		while(random >= 0)
+		{
+			if (hashing_array[random][1] == 0)
+			{
+				hashing_array[random][0] = value;
+				hashing_array[random][1] = 1;
+				set = true;
+				break;
+			}
+			random--;
+		}
+
+		while(point < size)
+		{
+			if (hashing_array[point][1] == 0)
+			{
+				hashing_array[point][0] = value;
+				hashing_array[point][1] = 1;
+				set = true;
+				break;
+			}
+			point++;
+		}
+
+		if (set == true)
+		{
+			break;
+		}
+
+		for(int u = 0; u < size; u++)
+		{
+			hashing_array[u][1] = 0;
+		}
+
+	}
+
+	cost = cost + 1;
+
+	return false;
+}
+
 int LRUaccess(int hashing_array[][2], int size, int value)
 {
 	int temp = hashing_function(value);
@@ -354,7 +431,7 @@ int main()
 
    for (int b = 0; b < sequence_length; b++)
    {
-	   bool in_hash = LRUaccess(hashing_array, hashing_array_size, sequence[b]);
+	   bool in_hash = Markingaccess(hashing_array, hashing_array_size, sequence[b]);
    }
 
    for (int m = 0; m < hashing_array_size; m++)
@@ -378,7 +455,7 @@ int main()
 
    for (int d = 0; d < sequence_length1; d++)
    {
-	   bool in_hash = LRUaccess(hashing_array, hashing_array_size, sequence1[d]);
+	   bool in_hash = Markingaccess(hashing_array, hashing_array_size, sequence1[d]);
    }
 
    for (int n = 0; n < hashing_array_size; n++)
