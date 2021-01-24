@@ -36,11 +36,6 @@ int packing(int v[], int w[], int i, int b)
 		value2 = v[i] + packing(v, w, i - 1, b - w[i]);
 	}
 
-	if (value2 > W)
-	{
-		return value2 - v[i];
-	}
-
 	if (value1 >= value2)
 	{
 		//cout << "HERE" << value2 << endl;
