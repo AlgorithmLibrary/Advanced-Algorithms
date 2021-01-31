@@ -82,30 +82,6 @@ void printGraph(Graph* graph)
 	}
 }
 
-void DepthFirstSearch(Graph* graph, int vertex)
-{
-	graph->head[vertex]->explored = 1;
-
-	printf("%d ", vertex);
-
-	Node* temp = graph->head[vertex];
-
-	while (temp != NULL)
-	{
-		if (temp->dest == 100)
-		{
-			return;
-		}
-
-		if (graph->head[temp->dest]->explored == 0)
-		{
-			DepthFirstSearch(graph, temp->dest);
-		}
-
-		temp = temp->next;
-	}
-}
-
 void DFS(Graph* graph, int vertex)
 {
 	//graph->head[vertex]->explored = 1;
